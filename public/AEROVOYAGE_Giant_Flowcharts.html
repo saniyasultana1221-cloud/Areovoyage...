@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEROVOYAGE - Giant Font Architecture Flowcharts</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=JetBrains+Mono:wght@700;800&display=swap');
+
+    :root {
+      --bg: #070B14;
+      --card-bg: #0F172A;
+      --card-border: #334155;
+      --primary: #F59E0B;
+      --primary-light: #FDE68A;
+      --accent: #38BDF8;
+      --emerald: #10B981;
+      --purple: #C084FC;
+      --rose: #FB7185;
+      --text: #FFFFFF;
+      --text-muted: #CBD5E1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @page {
+      size: A4 landscape;
+      margin: 10mm;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+      padding: 24px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Giant Flowchart Page */
+    .flow-page {
+      background: var(--card-bg);
+      border: 3px solid var(--card-border);
+      border-radius: 28px;
+      padding: 36px 40px;
+      margin-bottom: 40px;
+      page-break-after: always;
+      page-break-inside: avoid;
+      min-height: 860px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .flow-page:last-child {
+      page-break-after: auto;
+      margin-bottom: 0;
+    }
+
+    /* Header */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 2.5px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 28px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-title::before {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    .page-badge {
+      font-size: 16px;
+      font-weight: 800;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--primary-light);
+      border: 2px solid rgba(245, 158, 11, 0.5);
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+    }
+
+    /* Giant Grid for Flowchart Cards */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    /* Giant Step Card */
+    .step-card {
+      background: #131E35;
+      border: 2.5px solid #334155;
+      border-radius: 20px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .step-card-gold { border-color: var(--primary); background: #1C2438; }
+    .step-card-blue { border-color: var(--accent); background: #132238; }
+    .step-card-green { border-color: var(--emerald); background: #132828; }
+    .step-card-purple { border-color: var(--purple); background: #201736; }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: #000;
+      font-weight: 900;
+      font-size: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    .step-icon {
+      font-size: 28px;
+    }
+
+    .step-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #FFF;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .step-desc {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFF;
+    }
+
+    /* Flow Arrow Connecting Cards */
+    .flow-arrow-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 0;
+      gap: 16px;
+      color: var(--primary);
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    /* Giant Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th {
+      background: rgba(245, 158, 11, 0.18);
+      color: #FDE68A;
+      padding: 18px 20px;
+      font-weight: 900;
+      font-size: 18px;
+      border-bottom: 3px solid var(--card-border);
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    td {
+      padding: 20px 20px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      color: #E2E8F0;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    td strong {
+      color: #FFF;
+      font-size: 19px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(56, 189, 248, 0.2);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: #38BDF8;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .page-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 700;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      padding-top: 18px;
+      margin-top: 20px;
+    }
+
+    @media print {
+      body {
+        background: #070B14 !important;
+        color: #FFF !important;
+        padding: 0 !important;
+      }
+      .flow-page {
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 24px !important;
+        min-height: 100vh !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- ========================================================================= -->
+    <!-- PAGE 1: END-TO-END WORKFLOW SEQUENCE FLOWCHART (EXTRA LARGE) -->
+    <!-- ========================================================================= -->
+    <div class="flow-page">
+      <div class="page-header">
+        <h1 class="page-title">1. End-to-End System Workflow Sequence Flowchart</h1>
+        <span class="page-badge">Interactive Sequence Flow</span>
+      </div>
+
+      <!-- Row 1: Steps 1 to 4 -->
+      <div class="grid-4">
+        
+        <!-- Step 1 -->
+        <div class="step-card step-card-blue">
+          <div>
+            <div class="step-header">
+              <div class="step-num">01</div>
+              <span class="step-icon">🔍</span>
+            </div>
+            <div class="step-title">User Search Input</div>
+            <div class="step-desc">User enters "Hyderabad" into GlassSearchBar with 300ms debounce.</div>
+          </div>
+          <span class="step-tag">UI / Debounce</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card step-card-gold">
+          <div>
+            <div class="step-header">
+              <div class="step-num">02</div>
+              <span class="step-icon">🌐</span>
+            </div>
+            <div class="step-title">Nominatim API</div>
+            <div class="step-desc">OpenStreetMap API returns exact coords: (17.385°N, 78.486°E).</div>
+          </div>
+          <span class="step-tag">REST Geocode</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card step-card-purple">
+          <div>
+            <div class="step-header">
+              <div class="step-num">03</div>
+              <span class="step-icon">📐</span>
+            </div>
+            <div class="step-title">3D Vector Math</div>
+            <div class="step-desc">Spherical conversion to Cartesian (x, y, z) on Earth sphere radius R=80.</div>
+          </div>
+          <span class="step-tag">Trigonometry</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card step-card-green">
+          <div>
+            <div class="step-header">
+              <div class="step-num">04</div>
+              <span class="step-icon">🌍</span>
+            </div>
+            <div class="step-title">60 FPS Earth Spin</div>
+            <div class="step-desc">Three.js smoothly tweens camera to target via shortest-path lerp (1.1s).</div>
+          </div>
+          <span class="step-tag">WebGL 60 FPS</span>
+        </div>
+
+      </div>
+
+      <!-- Flow Connector -->
+      <div class="flow-arrow-row">
+        <span>⬇️ Hypersonic Descent & City Portal Initialization ⬇️</span>
+      </div>
+
+      <!-- Row 2: Steps 5 to 8 -->
+      <div class="grid-4">
+        
+        <!-- Step 5 -->
+        <div class="step-card step-card-gold">
+          <div>
+            <div class="step-header">
+              <div class="step-num">05</div>
+              <span class="step-icon">🚀</span>
+            </div>
+            <div class="step-title">Atmospheric Dive</div>
+            <div class="step-desc">Supersonic altitude countdown (420km ➔ 0km) through cloud layers.</div>
+          </div>
+          <span class="step-tag">Warp Animation</span>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="step-card step-card-blue">
+          <div>
+            <div class="step-header">
+              <div class="step-num">06</div>
+              <span class="step-icon">🏛️</span>
+            </div>
+            <div class="step-title">Hyderabad Portal</div>
+            <div class="step-desc">Full city page opens with Charminar, Golconda Fort, Nizam Itinerary & Reviews.</div>
+          </div>
+          <span class="step-tag">Full City Page</span>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="step-card step-card-purple">
+          <div>
+            <div class="step-header">
+              <div class="step-num">07</div>
+              <span class="step-icon">💳</span>
+            </div>
+            <div class="step-title">Stripe Sandbox</div>
+            <div class="step-desc">User enters test card (4242 4242 4242 4242) for instant payment authorization.</div>
+          </div>
+          <span class="step-tag">Test Checkout</span>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="step-card step-card-green">
+          <div>
+            <div class="step-header">
+              <div class="step-num">08</div>
+              <span class="step-icon">🗄️</span>
+            </div>
+            <div class="step-title">Supabase Receipt</div>
+            <div class="step-desc">Record saved to `reservations` table + Reference ID (AV-XXXX) generated.</div>
+          </div>
+          <span class="step-tag">DB Confirmed</span>
+        </div>
+
+      </div>
+
+      <div class="page-footer">
+        <span>AEROVOYAGE System Architecture</span>
+        <span>Page 1 of 4 • Giant Font Sequence Diagram</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PAGE 2: FRONTEND COMPONENT HIERARCHY TREE (EXTRA LARGE) -->
+    <!-- ========================================================================= -->
+    <div class="flow-page">
+      <div class="page-header">
+        <h1 class="page-title">2. Frontend Component Hierarchy Tree</h1>
+        <span class="page-badge">React 18 & Three.js Architecture</span>
+      </div>
+
+      <!-- Root Stage Card -->
+      <div style="background: #1E293B; border: 3px solid var(--primary); border-radius: 20px; padding: 22px 28px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <h2 style="font-size: 26px; font-weight: 900; color: #FFF;">💻 App.tsx (Main Spatial Stage & Root Viewport)</h2>
+          <p style="font-size: 16px; color: var(--text-muted); font-weight: 600;">Coordinates state between 3D globe orbit, atmospheric plunge, search bar, and modals.</p>
+        </div>
+        <span style="font-size: 15px; font-weight: 900; background: var(--primary); color: #000; padding: 6px 16px; border-radius: 999px; font-family: 'JetBrains Mono';">ROOT STAGE</span>
+      </div>
+
+      <!-- Sub-Components Grid -->
+      <div class="grid-3">
+        
+        <div class="step-card step-card-blue">
+          <div>
+            <div class="step-header">
+              <span style="font-size: 18px; font-weight: 900; color: var(--accent);">01. TOP NAVIGATION</span>
+              <span class="step-icon">⭐</span>
+            </div>
+            <div class="step-title">Header Bar</div>
+            <div class="step-desc">
+              • <strong>"Reserve Access"</strong> Glowing CTA<br>
+              • Currency Switcher (USD, EUR, INR...)<br>
+              • Saved Bucket List Counter Drawer<br>
+              • Spin & Win Promo Wheel
+            </div>
+          </div>
+          <span class="step-tag">Navbar Actions</span>
+        </div>
+
+        <div class="step-card step-card-gold">
+          <div>
+            <div class="step-header">
+              <span style="font-size: 18px; font-weight: 900; color: var(--primary);">02. 3D ORBIT & SEARCH</span>
+              <span class="step-icon">🌍</span>
+            </div>
+            <div class="step-title">Spatial3DGlobe</div>
+            <div class="step-desc">
+              • Pure Three.js WebGL Earth Sphere (R=80)<br>
+              • <strong>GlassSearchBar</strong> with 300ms debounce<br>
+              • <strong>AtmosphericDiveTransition</strong> (420km)<br>
+              • Shortest-Path Continuous 60 FPS Spin
+            </div>
+          </div>
+          <span class="step-tag">Three.js / WebGL</span>
+        </div>
+
+        <div class="step-card step-card-green">
+          <div>
+            <div class="step-header">
+              <span style="font-size: 18px; font-weight: 900; color: var(--emerald);">03. CITY EXPERIENCE</span>
+              <span class="step-icon">🏛️</span>
+            </div>
+            <div class="step-title">ImmersiveCityExperience</div>
+            <div class="step-desc">
+              • Dynamic Landmarks (Charminar, Golconda)<br>
+              • Curated Day-by-Day Nizami Itinerary<br>
+              • Live Supabase Reviews & Rating Writer<br>
+              • "Back to Orbit" Navigation Button
+            </div>
+          </div>
+          <span class="step-tag">Full City Portal</span>
+        </div>
+
+      </div>
+
+      <div class="flow-arrow-row">
+        <span>⬇️ Interactive Checkout & Lead Capture Modal ⬇️</span>
+      </div>
+
+      <!-- Booking Modal Sub-Card -->
+      <div style="background: #132238; border: 2.5px solid var(--accent); border-radius: 20px; padding: 22px 28px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <h3 style="font-size: 22px; font-weight: 900; color: #FFF;">💳 BookingModal.tsx (3-Step Conversion Flow)</h3>
+          <p style="font-size: 16px; color: var(--text-muted); font-weight: 600;">Step 1: Contact Details & Dates ➔ Step 2: Dual-Column Stripe Sandbox Card ➔ Step 3: Verified Reference ID Boarding Pass</p>
+        </div>
+        <span style="font-size: 14px; font-weight: 900; background: var(--accent); color: #000; padding: 6px 14px; border-radius: 8px; font-family: 'JetBrains Mono';">LEAD CHECKOUT</span>
+      </div>
+
+      <div class="page-footer">
+        <span>AEROVOYAGE System Architecture</span>
+        <span>Page 2 of 4 • Frontend Component Tree</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PAGE 3: BACKEND SERVICES & CACHE ARCHITECTURE (EXTRA LARGE) -->
+    <!-- ========================================================================= -->
+    <div class="flow-page">
+      <div class="page-header">
+        <h1 class="page-title">3. Backend Database & Services Architecture</h1>
+        <span class="page-badge">Supabase & Service Pipelines</span>
+      </div>
+
+      <div class="grid-3">
+        
+        <!-- Frontend Services Layer -->
+        <div class="step-card step-card-blue">
+          <div>
+            <div class="step-header">
+              <span style="font-size: 18px; font-weight: 900; color: var(--accent);">LAYER 1</span>
+              <span class="step-icon">📦</span>
+            </div>
+            <div class="step-title">Frontend Services</div>
+            <div class="step-desc">
+              • <code>destinationService.ts</code>: Dynamic relational query engine.<br><br>
+              • <code>supabaseService.ts</code>: Persists bookings & leads.<br><br>
+              • <code>stripeService.ts</code>: Test card authorization (4242...).<br><br>
+              • <code>travelDataService.ts</code>: Nominatim & Open-Meteo API.
+            </div>
+          </div>
+          <span class="step-tag">TypeScript Services</span>
+        </div>
+
+        <!-- Caching Layer -->
+        <div class="step-card step-card-gold">
+          <div>
+            <div class="step-header">
+              <span style="font-size: 18px; font-weight: 900; color: var(--primary);">LAYER 2</span>
+              <span class="step-icon">⚡</span>
+            </div>
+            <div class="step-title">High-Speed Cache</div>
+            <div class="step-desc">
+              • <strong>In-Memory SWR Cache</strong> (5-Minute TTL): Returns 0ms instant data for repeated searches.<br><br>
+              • <strong>Pre-seeded Local Fallback Repository</strong>: Provides 100% reliable offline data for Hyderabad, Rome, Tokyo, Agra, etc. if network is disconnected.
+            </div>
+          </div>
+          <span class="step-tag">SWR & Offline Fallback</span>
+        </div>
+
+        <!-- Cloud & Public APIs -->
+        <div class="step-card step-card-green">
+          <div>
+            <div class="step-header">
+              <span style="font-size: 18px; font-weight: 900; color: var(--emerald);">LAYER 3</span>
+              <span class="step-icon">☁️</span>
+            </div>
+            <div class="step-title">Cloud Backend & APIs</div>
+            <div class="step-desc">
+              • <strong>Supabase PostgreSQL</strong>: Normalized tables (`destinations`, `destination_details`, `reservations`, `reviews`).<br><br>
+              • <strong>Stripe Elements Sandbox</strong>: Test payments.<br><br>
+              • <strong>OpenStreetMap Nominatim</strong>: Live geocoding.<br><br>
+              • <strong>Open-Meteo</strong>: Real-time climate.
+            </div>
+          </div>
+          <span class="step-tag">PostgreSQL & REST APIs</span>
+        </div>
+
+      </div>
+
+      <div class="page-footer">
+        <span>AEROVOYAGE System Architecture</span>
+        <span>Page 3 of 4 • Backend & Services Flow</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PAGE 4: DATABASE RELATIONAL SCHEMA (EXTRA LARGE) -->
+    <!-- ========================================================================= -->
+    <div class="flow-page">
+      <div class="page-header">
+        <h1 class="page-title">4. Supabase Relational Database Schema Table</h1>
+        <span class="page-badge">PostgreSQL Relational Tables</span>
+      </div>
+
+      <div style="flex: 1; display: flex; align-items: center;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 22%;">Table Name</th>
+              <th style="width: 22%;">Primary Key</th>
+              <th style="width: 28%;">Foreign Keys & JSONB Fields</th>
+              <th style="width: 28%;">Description & Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>destinations</strong></td>
+              <td><code>city_slug (VARCHAR PK)</code></td>
+              <td>city_name, country, lat, lon, daily_rate, rating</td>
+              <td>Primary catalog of worldwide luxury destinations.</td>
+            </tr>
+            <tr>
+              <td><strong>destination_details</strong></td>
+              <td><code>id (UUID PK)</code></td>
+              <td><code>city_slug (FK)</code>, landmarks (JSONB), itinerary_days (JSONB)</td>
+              <td>Rich relational content for Hyderabad (Charminar, Golconda, Nizam Itineraries).</td>
+            </tr>
+            <tr>
+              <td><strong>reservations</strong></td>
+              <td><code>id (AV-XXXX PK)</code></td>
+              <td>user_email, full_name, dates, amount_paid, stripe_intent_id</td>
+              <td>Confirmed guest booking records and lead capture persistence.</td>
+            </tr>
+            <tr>
+              <td><strong>reviews</strong></td>
+              <td><code>id (UUID PK)</code></td>
+              <td><code>city_id (FK)</code>, user_name, rating, comment, created_at</td>
+              <td>Real-time user feedback with dynamic average rating recalculation.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="page-footer">
+        <span>AEROVOYAGE System Architecture</span>
+        <span>Page 4 of 4 • Database Relational Schema</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

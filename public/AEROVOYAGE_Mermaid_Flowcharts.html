@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEROVOYAGE - Official Architecture & Workflow Flowcharts</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+
+    :root {
+      --bg: #090D16;
+      --card-bg: #0F172A;
+      --card-border: #1E293B;
+      --primary: #F59E0B;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--card-border);
+      margin-bottom: 40px;
+    }
+
+    .brand-title {
+      font-size: 34px;
+      font-weight: 900;
+      color: #FFF;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title span {
+      color: var(--primary);
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 48px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      page-break-inside: avoid;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .chart-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chart-title::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 22px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .chart-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+    }
+
+    .mermaid {
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    /* Schema Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 10px;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #FDE68A;
+      padding: 14px 18px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--card-border);
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+    }
+
+    td strong {
+      color: #FFF;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #38BDF8;
+      font-size: 12px;
+    }
+
+    @media print {
+      body {
+        background: #090D16 !important;
+        color: #F8FAFC !important;
+        padding: 10px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .chart-card {
+        page-break-inside: avoid !important;
+        box-shadow: none !important;
+        margin-bottom: 30px !important;
+      }
+    }
+  </style>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#0F172A',
+        primaryColor: '#1E293B',
+        primaryTextColor: '#FFFFFF',
+        primaryBorderColor: '#F59E0B',
+        lineColor: '#F59E0B',
+        secondaryColor: '#131D33',
+        tertiaryColor: '#090D16',
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        fontSize: '13px'
+      }
+    });
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Brand Header -->
+    <div class="header">
+      <h1 class="brand-title">AERO<span>VOYAGE</span> Spatial Concierge</h1>
+      <p class="subtitle">System Architecture & Interactive Work Flowcharts (Frontend & Backend)</p>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- FLOWCHART 1: END-TO-END SYSTEM WORKFLOW SEQUENCE DIAGRAM -->
+    <!-- ========================================================================= -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">1. End-to-End System Workflow Sequence Flowchart</h2>
+        <span class="chart-badge">Interactive Sequence Flow</span>
+      </div>
+
+      <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User as User
+    participant Search as GlassSearchBar (UI)
+    participant Nominatim as OpenStreetMap API
+    participant Globe as Spatial3DGlobe (Three.js)
+    participant Dive as AtmosphericDiveTransition
+    participant Portal as ImmersiveCityExperience
+    participant Stripe as Stripe Sandbox (Test Card)
+    participant DB as Supabase PostgreSQL
+
+    User->>Search: Types "Hyderabad" (300ms debounce)
+    Search->>Nominatim: GET /search?q=Hyderabad
+    Nominatim-->>Search: Return (lat: 17.385, lon: 78.486)
+    Search->>Globe: Math: latLonToCartesian(lat, lon, R=80)
+    Globe->>Globe: 60 FPS Shortest-Path Camera Tween
+    Note over Globe: 1.1s Smooth Alignment Spin
+    Globe->>Dive: Trigger Hypersonic Re-entry
+    Dive->>Portal: Altitude 420km -> 0km Landing Transition
+    Portal->>DB: fetchCityDetails('hyderabad-in')
+    DB-->>Portal: Return Charminar, Golconda, Nizam Itinerary, Reviews
+    User->>Portal: Clicks "Reserve Access"
+    Portal->>Stripe: Process Test Card (4242 4242 4242 4242)
+    Stripe-->>Portal: Payment Authorized (pi_test_...)
+    Portal->>DB: INSERT into reservations table
+    DB-->>Portal: Confirm & Return Reference ID (AV-XXXX)
+    Portal-->>User: Render Boarding Pass & Trigger Confetti!
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- FLOWCHART 2: FRONTEND COMPONENT HIERARCHY TREE -->
+    <!-- ========================================================================= -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">2. Frontend Component Hierarchy Tree</h2>
+        <span class="chart-badge">React 18 Component Graph</span>
+      </div>
+
+      <div class="mermaid">
+graph TD
+    App["App.tsx (Spatial Stage)"] --> Header["Luxury Top Nav Bar"]
+    Header --> CTA["'Reserve Access' Button"]
+    Header --> Curr["Currency Selector"]
+    Header --> Saved["Saved Bucket List Drawer"]
+
+    App --> Intro["AirplaneIntro (3D Landing)"]
+    App --> Search["GlassSearchBar (300ms Debounce)"]
+    App --> Globe["Spatial3DGlobe (WebGL Earth R=80)"]
+    App --> Dive["AtmosphericDiveTransition (420km Descent)"]
+    App --> Portal["ImmersiveCityExperience (Full City Page)"]
+    
+    Portal --> Landmarks["Dynamic Landmarks (Charminar, Golconda)"]
+    Portal --> Itinerary["Curated Day-by-Day Nizami Schedule"]
+    Portal --> Reviews["Live Supabase Reviews & Rating Writer"]
+    Portal --> BackBtn["'Back to Orbit' Navigation"]
+
+    App --> Modal["BookingModal (3-Step Lead & Stripe Checkout)"]
+    Modal --> Step1["Step 1: Contact Details & Dates"]
+    Modal --> Step2["Step 2: Dual-Column Stripe Sandbox Card"]
+    Modal --> Step3["Step 3: Verified Reference ID Receipt"]
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- FLOWCHART 3: BACKEND DATABASE & SERVICES ARCHITECTURE -->
+    <!-- ========================================================================= -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">3. Backend Database & Services Architecture</h2>
+        <span class="chart-badge">Supabase & Service Pipelines</span>
+      </div>
+
+      <div class="mermaid">
+graph LR
+    subgraph FrontendServices["Frontend Services"]
+        ST["stripeService.ts"]
+        DS["destinationService.ts"]
+        SS["supabaseService.ts"]
+        TD["travelDataService.ts"]
+    end
+
+    subgraph CacheLayer["Cache Layer"]
+        SWR[("In-Memory SWR Cache 5m TTL")]
+        Fallback[("Pre-seeded Local Fallback")]
+    end
+
+    subgraph BackendCloud["Backend & Public APIs"]
+        StripeAPI["Stripe Elements Sandbox"]
+        Supa[("Supabase PostgreSQL")]
+        Nominatim["OpenStreetMap Nominatim"]
+        Meteo["Open-Meteo Weather API"]
+    end
+
+    DS --> SWR
+    DS --> Fallback
+    DS --> Supa
+    SS --> Supa
+    ST --> StripeAPI
+    TD --> Nominatim
+    TD --> Meteo
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TABLE 4: RELATIONAL DATABASE SCHEMA DEFINITION -->
+    <!-- ========================================================================= -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">4. Supabase Relational Database Schema</h2>
+        <span class="chart-badge">PostgreSQL Tables</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Table Name</th>
+            <th>Primary Key</th>
+            <th>Foreign Keys & JSONB Fields</th>
+            <th>Description / Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>destinations</strong></td>
+            <td><code>city_slug (PK)</code></td>
+            <td>city_name, country, lat, lon, daily_rate, rating</td>
+            <td>Primary catalog of worldwide spatial destinations.</td>
+          </tr>
+          <tr>
+            <td><strong>destination_details</strong></td>
+            <td><code>id (UUID PK)</code></td>
+            <td><code>city_slug (FK)</code>, landmarks (JSONB), itinerary_days (JSONB)</td>
+            <td>Rich relational data: Charminar, Golconda, day schedules, best times.</td>
+          </tr>
+          <tr>
+            <td><strong>reservations</strong></td>
+            <td><code>id (AV-XXXX PK)</code></td>
+            <td>user_email, full_name, dates, amount_paid, stripe_intent_id</td>
+            <td>Confirmed guest booking records and lead capture persistence.</td>
+          </tr>
+          <tr>
+            <td><strong>reviews</strong></td>
+            <td><code>id (UUID PK)</code></td>
+            <td><code>city_id (FK)</code>, user_name, rating, comment, created_at</td>
+            <td>Real-time user feedback with dynamic average rating recalculation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>

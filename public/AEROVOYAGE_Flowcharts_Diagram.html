@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEROVOYAGE - Comprehensive System Flowcharts (Frontend & Backend)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+
+    :root {
+      --bg: #070B14;
+      --card-bg: #0E1626;
+      --card-border: #1E293B;
+      --primary: #F59E0B;
+      --primary-light: #FDE68A;
+      --accent: #38BDF8;
+      --emerald: #10B981;
+      --purple: #A855F7;
+      --rose: #F43F5E;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--card-border);
+      margin-bottom: 32px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #FFF;
+    }
+
+    .brand-title span {
+      color: var(--primary);
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .badge-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge-gold { background: rgba(245, 158, 11, 0.15); color: var(--primary-light); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    /* Flowchart Section */
+    .flowchart-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 36px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      page-break-inside: avoid;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(245, 158, 11, 0.1);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    /* Flowchart SVG Graphic Layout */
+    .flowchart-container {
+      width: 100%;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 10px !important;
+      }
+
+      .flowchart-section {
+        background: #FFFFFF !important;
+        border: 1.5px solid #CBD5E1 !important;
+        box-shadow: none !important;
+        color: #000000 !important;
+        margin-bottom: 24px !important;
+        page-break-inside: avoid !important;
+      }
+
+      .section-title, .brand-title, .subtitle {
+        color: #000000 !important;
+      }
+
+      .badge {
+        border: 1px solid #64748B !important;
+        color: #0F172A !important;
+        background: #F1F5F9 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Document Header -->
+    <div class="header">
+      <h1 class="brand-title">AERO<span>VOYAGE</span></h1>
+      <p class="subtitle">Complete Technical Flowchart Blueprint & Architectural Execution Graphs</p>
+      <div class="badge-bar">
+        <span class="badge badge-gold">Frontend 3D WebGL Engine</span>
+        <span class="badge badge-blue">Backend Supabase Database</span>
+        <span class="badge badge-green">Stripe Sandbox & Lead Checkout</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- FLOWCHART 1: FRONTEND SEARCH, 3D MATH & HYPERSONIC DIVE -->
+    <!-- ========================================================================= -->
+    <div class="flowchart-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span>🌐</span> Flowchart 1: Search, 3D Geolocation & Orbital Plunge Flow
+        </h2>
+        <span class="section-tag">Frontend & Three.js Engine</span>
+      </div>
+
+      <div class="flowchart-container">
+        <svg viewBox="0 0 960 260" xmlns="http://www.w3.org/2000/svg" font-family="'Plus Jakarta Sans', sans-serif">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#F59E0B" />
+            </marker>
+            <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+              <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.4"/>
+            </filter>
+          </defs>
+
+          <!-- Node 1: User Input -->
+          <g filter="url(#shadow)">
+            <rect x="20" y="80" width="150" height="85" rx="14" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+            <text x="95" y="112" fill="#38BDF8" font-size="12" font-weight="800" text-anchor="middle">USER SEARCH</text>
+            <text x="95" y="132" fill="#FFF" font-size="13" font-weight="700" text-anchor="middle">Types "Hyderabad"</text>
+            <text x="95" y="150" fill="#94A3B8" font-size="10" text-anchor="middle">300ms Debounce Timer</text>
+          </g>
+
+          <line x1="170" y1="122" x2="210" y2="122" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+          <!-- Node 2: Nominatim Geocoding -->
+          <g filter="url(#shadow)">
+            <rect x="215" y="80" width="165" height="85" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+            <text x="297" y="112" fill="#F59E0B" font-size="12" font-weight="800" text-anchor="middle">GEOCODING API</text>
+            <text x="297" y="132" fill="#FFF" font-size="12" font-weight="700" text-anchor="middle">OpenStreetMap API</text>
+            <text x="297" y="150" fill="#94A3B8" font-size="10" text-anchor="middle">Returns (17.38°N, 78.48°E)</text>
+          </g>
+
+          <line x1="380" y1="122" x2="420" y2="122" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+          <!-- Node 3: 3D Vector Math -->
+          <g filter="url(#shadow)">
+            <rect x="425" y="80" width="165" height="85" rx="14" fill="#1E293B" stroke="#A855F7" stroke-width="2"/>
+            <text x="507" y="110" fill="#C084FC" font-size="12" font-weight="800" text-anchor="middle">3D VECTOR MATH</text>
+            <text x="507" y="128" fill="#FFF" font-family="'JetBrains Mono'" font-size="10" font-weight="700" text-anchor="middle">x = R·cos(lat)·cos(lon)</text>
+            <text x="507" y="142" fill="#FFF" font-family="'JetBrains Mono'" font-size="10" font-weight="700" text-anchor="middle">y = R·sin(lat), z = -R·...</text>
+            <text x="507" y="156" fill="#94A3B8" font-size="9" text-anchor="middle">Earth Sphere Radius R=80</text>
+          </g>
+
+          <line x1="590" y1="122" x2="630" y2="122" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+          <!-- Node 4: 60 FPS Earth Spin -->
+          <g filter="url(#shadow)">
+            <rect x="635" y="80" width="150" height="85" rx="14" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+            <text x="710" y="112" fill="#34D399" font-size="12" font-weight="800" text-anchor="middle">60 FPS CAMERA</text>
+            <text x="710" y="132" fill="#FFF" font-size="12" font-weight="700" text-anchor="middle">Shortest-Path Lerp</text>
+            <text x="710" y="150" fill="#94A3B8" font-size="10" text-anchor="middle">Smooth 1.1s Alignment</text>
+          </g>
+
+          <line x1="785" y1="122" x2="825" y2="122" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+          <!-- Node 5: Atmospheric Portal -->
+          <g filter="url(#shadow)">
+            <rect x="830" y="80" width="110" height="85" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+            <text x="885" y="112" fill="#F59E0B" font-size="11" font-weight="800" text-anchor="middle">CITY PORTAL</text>
+            <text x="885" y="132" fill="#FFF" font-size="12" font-weight="700" text-anchor="middle">Hyd Page</text>
+            <text x="885" y="150" fill="#94A3B8" font-size="10" text-anchor="middle">Warp Dive In</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- FLOWCHART 2: BACKEND SUPABASE & SWR CACHE DECISION LOGIC -->
+    <!-- ========================================================================= -->
+    <div class="flowchart-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span>🗄️</span> Flowchart 2: Backend Supabase Database & SWR Cache Flow
+        </h2>
+        <span class="section-tag">Backend & Data Architecture</span>
+      </div>
+
+      <div class="flowchart-container">
+        <svg viewBox="0 0 960 280" xmlns="http://www.w3.org/2000/svg" font-family="'Plus Jakarta Sans', sans-serif">
+          <defs>
+            <marker id="arrow2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38BDF8" />
+            </marker>
+          </defs>
+
+          <!-- Start Node -->
+          <rect x="30" y="100" width="150" height="70" rx="12" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+          <text x="105" y="130" fill="#38BDF8" font-size="12" font-weight="800" text-anchor="middle">QUERY TRIGGER</text>
+          <text x="105" y="150" fill="#FFF" font-size="11" font-weight="600" text-anchor="middle">fetchCityDetails(id)</text>
+
+          <line x1="180" y1="135" x2="230" y2="135" stroke="#38BDF8" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+          <!-- Decision Diamond: SWR Cache -->
+          <polygon points="310,85 385,135 310,185 235,135" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+          <text x="310" y="130" fill="#F59E0B" font-size="11" font-weight="800" text-anchor="middle">SWR CACHE</text>
+          <text x="310" y="145" fill="#FFF" font-size="10" text-anchor="middle">TTL &lt; 5 min?</text>
+
+          <!-- Path Yes: Return Cached Data -->
+          <line x1="310" y1="85" x2="310" y2="40" stroke="#10B981" stroke-width="2"/>
+          <line x1="310" y1="40" x2="740" y2="40" stroke="#10B981" stroke-width="2"/>
+          <line x1="740" y1="40" x2="740" y2="95" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrow2)"/>
+          <text x="360" y="32" fill="#10B981" font-size="11" font-weight="800">YES (0ms Instant Return)</text>
+
+          <!-- Path No: Query Supabase -->
+          <line x1="385" y1="135" x2="445" y2="135" stroke="#38BDF8" stroke-width="2.5" marker-end="url(#arrow2)"/>
+          <text x="410" y="125" fill="#F59E0B" font-size="10" font-weight="700">NO</text>
+
+          <!-- Node: Supabase Query -->
+          <rect x="450" y="100" width="170" height="70" rx="12" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+          <text x="535" y="128" fill="#38BDF8" font-size="12" font-weight="800" text-anchor="middle">SUPABASE POSTGRESQL</text>
+          <text x="535" y="146" fill="#FFF" font-size="11" text-anchor="middle">SELECT cities, landmarks...</text>
+
+          <line x1="620" y1="135" x2="680" y2="135" stroke="#38BDF8" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+          <!-- Final Node: UI Render -->
+          <rect x="685" y="100" width="230" height="70" rx="12" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+          <text x="800" y="126" fill="#34D399" font-size="12" font-weight="800" text-anchor="middle">DYNAMIC PAGE RENDER</text>
+          <text x="800" y="144" fill="#FFF" font-size="11" font-weight="600" text-anchor="middle">Charminar • Golconda • Itinerary</text>
+          <text x="800" y="158" fill="#94A3B8" font-size="10" text-anchor="middle">Updates SWR Cache Memory</text>
+
+          <!-- Fallback Branch -->
+          <line x1="535" y1="170" x2="535" y2="230" stroke="#F43F5E" stroke-width="2"/>
+          <line x1="535" y1="230" x2="680" y2="230" stroke="#F43F5E" stroke-width="2.5" marker-end="url(#arrow2)"/>
+          <text x="545" y="215" fill="#F43F5E" font-size="10" font-weight="700">If Network Offline</text>
+
+          <rect x="685" y="200" width="230" height="60" rx="12" fill="#1E293B" stroke="#F43F5E" stroke-width="2"/>
+          <text x="800" y="225" fill="#FB7185" font-size="11" font-weight="800" text-anchor="middle">PRE-SEEDED LOCAL REPO</text>
+          <text x="800" y="243" fill="#FFF" font-size="10" text-anchor="middle">100% Reliable Offline Fallback</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- FLOWCHART 3: LEAD CAPTURE & STRIPE CHECKOUT PAYMENT WORKFLOW -->
+    <!-- ========================================================================= -->
+    <div class="flowchart-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span>💳</span> Flowchart 3: Lead Capture, Stripe Elements & Booking Pipeline
+        </h2>
+        <span class="section-tag">Stripe Sandbox & Lead Conversion</span>
+      </div>
+
+      <div class="flowchart-container">
+        <svg viewBox="0 0 960 260" xmlns="http://www.w3.org/2000/svg" font-family="'Plus Jakarta Sans', sans-serif">
+          <defs>
+            <marker id="arrow3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#10B981" />
+            </marker>
+          </defs>
+
+          <!-- Step 1 -->
+          <rect x="20" y="80" width="165" height="90" rx="14" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+          <text x="102" y="110" fill="#38BDF8" font-size="12" font-weight="800" text-anchor="middle">STEP 1: LEAD FORM</text>
+          <text x="102" y="130" fill="#FFF" font-size="11" font-weight="600" text-anchor="middle">Full Name, Email</text>
+          <text x="102" y="146" fill="#FFF" font-size="11" font-weight="600" text-anchor="middle">Check-In / Out Dates</text>
+          <text x="102" y="160" fill="#94A3B8" font-size="9" text-anchor="middle">Client-Side Validation</text>
+
+          <line x1="185" y1="125" x2="225" y2="125" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrow3)"/>
+
+          <!-- Step 2 -->
+          <rect x="230" y="80" width="180" height="90" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+          <text x="320" y="110" fill="#F59E0B" font-size="12" font-weight="800" text-anchor="middle">STEP 2: STRIPE CARD</text>
+          <text x="320" y="130" fill="#FFF" font-size="11" font-weight="600" text-anchor="middle">Dual-Column UI Card</text>
+          <text x="320" y="146" fill="#FFF" font-family="'JetBrains Mono'" font-size="10" text-anchor="middle">4242 4242 4242 4242</text>
+          <text x="320" y="160" fill="#94A3B8" font-size="9" text-anchor="middle">Sandbox Authorization</text>
+
+          <line x1="410" y1="125" x2="450" y2="125" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrow3)"/>
+
+          <!-- Step 3 -->
+          <rect x="455" y="80" width="180" height="90" rx="14" fill="#1E293B" stroke="#A855F7" stroke-width="2"/>
+          <text x="545" y="110" fill="#C084FC" font-size="12" font-weight="800" text-anchor="middle">SUPABASE WRITER</text>
+          <text x="545" y="130" fill="#FFF" font-size="11" font-weight="600" text-anchor="middle">INSERT `reservations`</text>
+          <text x="545" y="146" fill="#FFF" font-size="10" text-anchor="middle">Saves Dates & Lead Info</text>
+          <text x="545" y="160" fill="#94A3B8" font-size="9" text-anchor="middle">Stripe Intent ID Link</text>
+
+          <line x1="635" y1="125" x2="675" y2="125" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrow3)"/>
+
+          <!-- Step 4 -->
+          <rect x="680" y="80" width="260" height="90" rx="14" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+          <text x="810" y="110" fill="#34D399" font-size="12" font-weight="800" text-anchor="middle">STEP 3: CONFIRMATION RECEIPT</text>
+          <text x="810" y="130" fill="#FFF" font-family="'JetBrains Mono'" font-size="12" font-weight="800" text-anchor="middle">ID: AV-HYD-9842 (Copyable)</text>
+          <text x="810" y="148" fill="#FFF" font-size="11" text-anchor="middle">🎉 Confetti + Boarding Ticket Export</text>
+          <text x="810" y="162" fill="#94A3B8" font-size="9" text-anchor="middle">1-Click Return to 3D Orbit</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; color: var(--text-muted); font-size: 12px; border-top: 1px solid var(--card-border); padding-top: 20px;">
+      AEROVOYAGE System Architecture • High-Resolution Flowchart Engineering Diagram
+    </div>
+
+  </div>
+
+</body>
+</html>
