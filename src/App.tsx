@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
-import { Compass, Heart, Lock, Sparkles } from 'lucide-react';
+import { Compass, Heart, Lock, Sparkles, Globe, ChevronDown, ArrowDown } from 'lucide-react';
 import { Spatial3DGlobe } from './components/Spatial3DGlobe';
 import { GlassSearchBar } from './components/GlassSearchBar';
 import { LocationInfoCard } from './components/LocationInfoCard';
@@ -15,6 +15,7 @@ import { BookingModal } from './components/BookingModal';
 import { BucketListDrawer } from './components/BucketListDrawer';
 import { AirplaneIntro } from './components/AirplaneIntro';
 import { Global3DSpaceCanvas } from './components/Global3DSpaceCanvas';
+import { DestinationExplorer } from './components/DestinationExplorer';
 
 import { DESTINATIONS } from './data/destinations';
 import { CURRENCIES } from './utils/currency';
@@ -216,7 +217,7 @@ export function App() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-[#050811] text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950 relative overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col bg-[#050811] text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden">
       
       {/* Universal True 3D Three.js WebGL Deep Space Starfield across All Pages */}
       <Global3DSpaceCanvas />
@@ -270,6 +271,17 @@ export function App() {
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>3D Spatial Orbit</span>
               </span>
+              <span className="text-white/20">|</span>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('stage-cosmos');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-slate-300 hover:text-amber-300 transition font-bold cursor-pointer flex items-center gap-1"
+              >
+                <span>Cosmos Portfolio</span>
+                <span className="text-amber-400 text-[10px]">↓</span>
+              </button>
               <span className="text-white/20">|</span>
               <button
                 onClick={() => setIsQuizOpen(true)}
@@ -452,6 +464,21 @@ export function App() {
             />
           </div>
 
+          {/* Easy Scroll Down Floating Pill (Smooth Scroll to Cosmos 2nd Page) */}
+          <div className="absolute bottom-8 right-6 sm:right-10 z-40">
+            <button
+              onClick={() => {
+                const el = document.getElementById('stage-cosmos');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 hover:border-amber-400/60 text-white text-xs font-bold backdrop-blur-xl shadow-[0_0_25px_rgba(0,0,0,0.8)] transition transform hover:-translate-y-0.5 cursor-pointer group"
+            >
+              <span className="text-amber-400 animate-bounce font-mono">↓</span>
+              <span className="text-slate-200 group-hover:text-amber-300 transition">Scroll to Explore Portfolio</span>
+              <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_#F59E0B]" />
+            </button>
+          </div>
+
           {/* 3D WebGL Earth Globe with Watermark & Dynamic Zoom */}
           <Spatial3DGlobe 
             targetLocation={targetLocation} 
@@ -466,6 +493,40 @@ export function App() {
             }}
           />
         </div>
+
+        {/* ========================================================================= */}
+        {/* PAGE 2: COSMOS 3D FLOATING SHOWCASE & PORTFOLIO (SAME GALAXY VIEW) */}
+        {/* ========================================================================= */}
+        <section id="stage-cosmos" className="relative w-full min-h-screen bg-transparent">
+          <DestinationExplorer
+            destinations={DESTINATIONS}
+            currency={currency}
+            searchQuery={searchQuery}
+            onSearchQueryChange={setSearchQuery}
+            selectedVibe={selectedVibe}
+            onSelectedVibeChange={setSelectedVibe}
+            bookmarkedIds={bookmarkedIds}
+            onToggleBookmark={handleToggleBookmark}
+            onSelectDestination={(dest) => {
+              setSelectedDestinationModal(dest);
+            }}
+            onBookNow={handleBookDestination}
+          />
+
+          {/* Effortless Return to 3D Orbit Floating Pill at bottom of Page 2 */}
+          <div className="flex justify-center pb-20 pt-6 relative z-20">
+            <button
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="flex items-center gap-2.5 px-6 py-3 rounded-full bg-black/75 hover:bg-black/95 border border-white/20 hover:border-amber-400/60 text-white text-xs font-bold backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.9)] transition transform hover:-translate-y-0.5 cursor-pointer group"
+            >
+              <span className="text-amber-400 font-mono text-sm">↑</span>
+              <span className="text-slate-200 group-hover:text-amber-300 transition">Return to 3D Orbit</span>
+              <Globe className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition duration-300" />
+            </button>
+          </div>
+        </section>
 
       </main>
 
