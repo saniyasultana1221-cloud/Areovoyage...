@@ -5,7 +5,6 @@ import {
 } from 'lucide-react';
 import { Destination, Currency, TravelVibe, Continent } from '../types';
 import { DestinationCard } from './DestinationCard';
-import { CosmicStarfield } from './CosmicStarfield';
 import { Cosmos3DFloatingStage, FloatingCardItem } from './Cosmos3DFloatingStage';
 
 interface DestinationExplorerProps {
@@ -144,10 +143,6 @@ export const DestinationExplorer: React.FC<DestinationExplorerProps> = ({
 
   return (
     <section id="destinations" className="py-24 bg-transparent relative overflow-hidden select-none">
-      
-      {/* Background Deep Space Starfield & Cosmic Dust */}
-      <CosmicStarfield density={90} speed={0.15} />
-
       {/* Ambient Deep Space Backdrops */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-amber-500/[0.04] rounded-full blur-[160px] pointer-events-none" />
 
