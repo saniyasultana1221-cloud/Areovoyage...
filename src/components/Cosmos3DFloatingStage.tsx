@@ -214,7 +214,7 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full min-h-[740px] sm:min-h-[800px] lg:min-h-[840px] py-16 flex flex-col items-center justify-center text-center px-4 mb-16 overflow-hidden bg-transparent"
+      className="relative w-full min-h-[740px] sm:min-h-[800px] lg:min-h-[860px] py-16 flex flex-col items-center justify-center text-center px-2 sm:px-4 mb-16 bg-transparent"
     >
       {/* 3D WebGL Interactive Particle Canvas */}
       <canvas
@@ -300,7 +300,7 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
               transform: `translate3d(${transform.x}px, ${transform.y}px, 0px) rotateX(${transform.rx}deg) rotateY(${transform.ry}deg)`,
               transition: 'transform 0.15s ease-out',
             }}
-            className={`absolute ${card.position} z-10 hidden lg:block pointer-events-auto`}
+            className={`absolute ${card.position} z-10 block pointer-events-auto`}
           >
             <div
               onClick={() => onCardClick?.(card)}
