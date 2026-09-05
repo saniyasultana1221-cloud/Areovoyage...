@@ -42,8 +42,8 @@ const FLOATING_SHOWCASE: FloatingCardItem[] = [
     title: 'Amalfi Coast',
     subtitle: 'Italy',
     image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=85',
-    size: 'w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40',
-    position: 'top-2 sm:top-4 lg:top-6 left-2 sm:left-6 lg:left-10 xl:left-14',
+    size: 'w-26 sm:w-30 md:w-34 lg:w-38 xl:w-42',
+    position: 'top-4 sm:top-6 left-2 sm:left-6 lg:left-10 xl:left-16',
     rotation: '-rotate-6',
     parallaxFactor: 16,
   },
@@ -52,8 +52,8 @@ const FLOATING_SHOWCASE: FloatingCardItem[] = [
     title: 'Swiss Alps',
     subtitle: 'Switzerland',
     image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=85',
-    size: 'w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40',
-    position: 'top-[48%] -translate-y-1/2 left-1 sm:left-3 lg:left-4 xl:left-6',
+    size: 'w-26 sm:w-30 md:w-34 lg:w-38 xl:w-42',
+    position: 'top-1/2 -translate-y-1/2 left-1 sm:left-3 lg:left-4 xl:left-8',
     rotation: 'rotate-3',
     parallaxFactor: 20,
   },
@@ -62,8 +62,8 @@ const FLOATING_SHOWCASE: FloatingCardItem[] = [
     title: 'Paris Lights',
     subtitle: 'France',
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=85',
-    size: 'w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40',
-    position: 'bottom-2 sm:bottom-4 lg:bottom-6 left-4 sm:left-8 lg:left-14 xl:left-20',
+    size: 'w-26 sm:w-30 md:w-34 lg:w-38 xl:w-42',
+    position: 'bottom-4 sm:bottom-6 left-4 sm:left-8 lg:left-12 xl:left-18',
     rotation: '-rotate-3',
     parallaxFactor: 15,
   },
@@ -72,8 +72,8 @@ const FLOATING_SHOWCASE: FloatingCardItem[] = [
     title: 'Kyoto & Tokyo',
     subtitle: 'Japan',
     image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=85',
-    size: 'w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40',
-    position: 'top-2 sm:top-4 lg:top-6 right-2 sm:right-6 lg:right-10 xl:right-14',
+    size: 'w-26 sm:w-30 md:w-34 lg:w-38 xl:w-42',
+    position: 'top-4 sm:top-6 right-2 sm:right-6 lg:right-10 xl:right-16',
     rotation: 'rotate-6',
     parallaxFactor: 16,
   },
@@ -82,8 +82,8 @@ const FLOATING_SHOWCASE: FloatingCardItem[] = [
     title: 'Santorini Caldera',
     subtitle: 'Greece',
     image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=85',
-    size: 'w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40',
-    position: 'top-[48%] -translate-y-1/2 right-1 sm:right-3 lg:right-4 xl:right-6',
+    size: 'w-26 sm:w-30 md:w-34 lg:w-38 xl:w-42',
+    position: 'top-1/2 -translate-y-1/2 right-1 sm:right-3 lg:right-4 xl:right-8',
     rotation: '-rotate-3',
     parallaxFactor: 20,
   },
@@ -92,8 +92,8 @@ const FLOATING_SHOWCASE: FloatingCardItem[] = [
     title: 'Bali Sanctuary',
     subtitle: 'Indonesia',
     image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=85',
-    size: 'w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40',
-    position: 'bottom-2 sm:bottom-4 lg:bottom-6 right-4 sm:right-8 lg:right-14 xl:right-20',
+    size: 'w-26 sm:w-30 md:w-34 lg:w-38 xl:w-42',
+    position: 'bottom-4 sm:bottom-6 right-4 sm:right-8 lg:right-12 xl:right-18',
     rotation: 'rotate-3',
     parallaxFactor: 15,
   },
@@ -142,7 +142,7 @@ export const DestinationExplorer: React.FC<DestinationExplorerProps> = ({
   }, [destinations, searchQuery, selectedRegion, selectedVibe, sortBy]);
 
   return (
-    <section id="destinations" className="py-24 bg-transparent relative overflow-hidden select-none">
+    <section id="destinations" className="pt-10 pb-16 sm:pt-14 sm:pb-20 bg-transparent relative overflow-hidden select-none">
       {/* Ambient Deep Space Backdrops */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-amber-500/[0.04] rounded-full blur-[160px] pointer-events-none" />
 
