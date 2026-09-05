@@ -214,7 +214,7 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full min-h-[640px] sm:min-h-[700px] lg:min-h-[740px] flex flex-col items-center justify-center text-center px-4 mb-16 overflow-hidden bg-transparent"
+      className="relative w-full min-h-[740px] sm:min-h-[800px] lg:min-h-[840px] py-16 flex flex-col items-center justify-center text-center px-4 mb-16 overflow-hidden bg-transparent"
     >
       {/* 3D WebGL Interactive Particle Canvas */}
       <canvas
