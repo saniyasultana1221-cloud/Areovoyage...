@@ -64,22 +64,22 @@ export function App() {
   const [activeCityInfo, setActiveCityInfo] = useState<CityInfo | null>(null);
   const [immersiveCity, setImmersiveCity] = useState<CityInfo | null>(() => {
     if (typeof window !== 'undefined') {
-      const hash = window.location.hash.toLowerCase();
-      if (hash.includes('bengaluru') || hash.includes('bangalore')) {
-        return WORLD_CITIES.find((c) => c.id === 'bengaluru-in') || null;
+      const hash = window.location.hash.toLowerCase().replace('#', '').trim();
+      if (hash) {
+        return WORLD_CITIES.find((c) => c.id.toLowerCase().includes(hash) || c.name.toLowerCase().includes(hash)) || null;
       }
     }
     return null;
   });
   const [divingCity, setDivingCity] = useState<CityInfo | null>(null);
 
-  // Listen for hash changes to navigate directly to city portals (e.g. #bengaluru)
+  // Listen for hash changes to navigate directly to city portals (e.g. #tokyo, #paris, etc.)
   useEffect(() => {
     const handleHash = () => {
-      const hash = window.location.hash.toLowerCase();
-      if (hash.includes('bengaluru') || hash.includes('bangalore')) {
-        const b = WORLD_CITIES.find((c) => c.id === 'bengaluru-in');
-        if (b) setImmersiveCity(b);
+      const hash = window.location.hash.toLowerCase().replace('#', '').trim();
+      if (hash) {
+        const found = WORLD_CITIES.find((c) => c.id.toLowerCase().includes(hash) || c.name.toLowerCase().includes(hash));
+        if (found) setImmersiveCity(found);
       }
     };
     window.addEventListener('hashchange', handleHash);
@@ -296,20 +296,6 @@ export function App() {
               >
                 Spin & Win
               </button>
-              <span className="text-white/20">|</span>
-              <button
-                onClick={() => {
-                  const b = WORLD_CITIES.find((c) => c.id === 'bengaluru-in');
-                  if (b) {
-                    setImmersiveCity(b);
-                    window.location.hash = 'bengaluru';
-                  }
-                }}
-                className="flex items-center gap-1.5 text-amber-300 hover:text-amber-200 transition font-black cursor-pointer bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-400/40"
-              >
-                <span>🇮🇳</span>
-                <span>Bengaluru Portal</span>
-              </button>
             </div>
 
             {/* Right: Actions & "Reserve Access" CTA */}
@@ -371,28 +357,6 @@ export function App() {
             </div>
           </header>
 
-          {/* Quick Direct 1-Click Launch Pill to Bengaluru Portal */}
-          <div className="absolute top-20 right-4 sm:right-6 z-40 pointer-events-auto">
-            <button
-              onClick={() => {
-                const b = WORLD_CITIES.find((c) => c.id === 'bengaluru-in');
-                if (b) {
-                  setImmersiveCity(b);
-                  window.location.hash = 'bengaluru';
-                }
-              }}
-              className="flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-[#050811]/90 hover:bg-black border border-amber-400/60 text-white text-xs font-bold backdrop-blur-2xl shadow-[0_0_25px_rgba(245,158,11,0.35)] transition transform hover:scale-105 cursor-pointer group"
-            >
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <div className="text-left">
-                <div className="text-[9px] text-amber-400 font-mono font-bold uppercase tracking-wider">Live Preview</div>
-                <div className="text-white text-xs font-black group-hover:text-amber-300 transition flex items-center gap-1">
-                  <span>🇮🇳 Bengaluru Section</span>
-                  <span className="text-amber-400 font-bold">→</span>
-                </div>
-              </div>
-            </button>
-          </div>
 
           {/* Hypersonic Atmospheric Dive Transition Overlay */}
           {divingCity && (
