@@ -147,12 +147,23 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
     };
     window.addEventListener('resize', handleResize);
 
-    // Animation Loop
+    // Animation Loop (Throttled & paused when offscreen for zero startup latency)
     let animId: number;
     let clock = new THREE.Clock();
+    let isVisible = false;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.05 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      if (!isVisible) return; // Zero CPU/GPU work when user is on Page 1 (orbit)
+
       const elapsedTime = clock.getElapsedTime();
 
       // Inertial spring lerp for mouse
@@ -170,24 +181,27 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
 
       renderer.render(scene, camera);
 
-      // Compute card parallax offsets for HTML overlay
-      const transforms: { [key: string]: { x: number; y: number; rx: number; ry: number } } = {};
-      cards.forEach((c) => {
-        const factor = c.parallaxFactor || 22;
-        transforms[c.id] = {
-          x: smoothMouse.current.x * factor,
-          y: smoothMouse.current.y * factor,
-          rx: -smoothMouse.current.y * (factor * 0.35),
-          ry: smoothMouse.current.x * (factor * 0.35),
-        };
-      });
-      setCardTransforms(transforms);
+      // Compute card parallax offsets only if cards exist
+      if (cards.length > 0) {
+        const transforms: { [key: string]: { x: number; y: number; rx: number; ry: number } } = {};
+        cards.forEach((c) => {
+          const factor = c.parallaxFactor || 22;
+          transforms[c.id] = {
+            x: smoothMouse.current.x * factor,
+            y: smoothMouse.current.y * factor,
+            rx: -smoothMouse.current.y * (factor * 0.35),
+            ry: smoothMouse.current.x * (factor * 0.35),
+          };
+        });
+        setCardTransforms(transforms);
+      }
     };
 
     animate();
 
     return () => {
       cancelAnimationFrame(animId);
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
       geometry.dispose();
       material.dispose();

@@ -15,11 +15,11 @@ interface Spatial3DGlobeProps {
   [key: string]: any;
 }
 
-// High-Res NASA / Satellite Texture URLs
-const EARTH_DAY_URL = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg';
-const EARTH_NORMAL_URL = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg';
-const EARTH_SPECULAR_URL = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg';
-const EARTH_CLOUDS_URL = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png';
+// High-Res NASA / Satellite Texture URLs (Served locally for 0ms load & zero latency)
+const EARTH_DAY_URL = '/textures/earth_atmos_2048.jpg';
+const EARTH_NORMAL_URL = '/textures/earth_normal_2048.jpg';
+const EARTH_SPECULAR_URL = '/textures/earth_specular_2048.jpg';
+const EARTH_CLOUDS_URL = '/textures/earth_clouds_1024.png';
 
 // Helper to calculate Geo Distance in KM
 function getGeoDistanceKM(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -121,7 +121,7 @@ export const Spatial3DGlobe: React.FC<Spatial3DGlobeProps> = ({
     cameraRef.current = camera;
 
     // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -139,68 +139,30 @@ export const Spatial3DGlobe: React.FC<Spatial3DGlobeProps> = ({
     const radius = 80;
 
     // =========================================================================
-    // 1. DYNAMIC PROCEDURAL EARTH FALLBACK TEXTURE (Immediate Load)
+    // 1. EARTH MAIN SPHERE WITH LOCAL NASA SATELLITE TEXTURES (Instant 0ms Load)
     // =========================================================================
-    const canvas = document.createElement('canvas');
-    canvas.width = 2048;
-    canvas.height = 1024;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      ctx.fillStyle = '#061324';
-      ctx.fillRect(0, 0, 2048, 1024);
+    const textureLoader = new THREE.TextureLoader();
 
-      // Continents
-      ctx.fillStyle = '#1e3d2f';
-      ctx.beginPath();
-      ctx.ellipse(1080, 420, 280, 180, 0, 0, Math.PI * 2);
-      ctx.fill();
+    const dayTexture = textureLoader.load(EARTH_DAY_URL, (tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      earthMat.needsUpdate = true;
+    });
+    dayTexture.colorSpace = THREE.SRGBColorSpace;
 
-      // India / South Asia
-      ctx.fillStyle = '#2d5a3f';
-      ctx.beginPath();
-      ctx.ellipse(1450, 470, 90, 80, 0.4, 0, Math.PI * 2);
-      ctx.fill();
+    const normalTexture = textureLoader.load(EARTH_NORMAL_URL, () => {
+      earthMat.needsUpdate = true;
+    });
 
-      // Africa
-      ctx.fillStyle = '#4a3b2c';
-      ctx.beginPath();
-      ctx.ellipse(1050, 560, 160, 200, 0, 0, Math.PI * 2);
-      ctx.fill();
+    const specularTexture = textureLoader.load(EARTH_SPECULAR_URL, () => {
+      earthMat.needsUpdate = true;
+    });
 
-      // North America
-      ctx.fillStyle = '#1c4228';
-      ctx.beginPath();
-      ctx.ellipse(540, 360, 220, 150, -0.2, 0, Math.PI * 2);
-      ctx.fill();
-
-      // South America
-      ctx.fillStyle = '#235222';
-      ctx.beginPath();
-      ctx.ellipse(660, 660, 150, 220, 0.3, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Australia
-      ctx.fillStyle = '#b87333';
-      ctx.beginPath();
-      ctx.ellipse(1740, 720, 130, 90, 0.1, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Polar Ice
-      ctx.fillStyle = '#e2f1ff';
-      ctx.beginPath();
-      ctx.rect(0, 0, 2048, 65);
-      ctx.rect(0, 960, 2048, 64);
-      ctx.fill();
-    }
-
-    const fallbackTexture = new THREE.CanvasTexture(canvas);
-
-    // =========================================================================
-    // 2. EARTH MAIN SPHERE WITH SATELLITE TEXTURES
-    // =========================================================================
     const earthGeo = new THREE.SphereGeometry(radius, 64, 64);
     const earthMat = new THREE.MeshStandardMaterial({
-      map: fallbackTexture,
+      map: dayTexture,
+      normalMap: normalTexture,
+      normalScale: new THREE.Vector2(0.85, 0.85),
+      roughnessMap: specularTexture,
       roughness: 0.65,
       metalness: 0.1,
     });
@@ -209,43 +171,15 @@ export const Spatial3DGlobe: React.FC<Spatial3DGlobeProps> = ({
     globeGroup.add(earthMesh);
     earthMeshRef.current = earthMesh;
 
-    // Texture Loader for Satellite NASA Textures
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.crossOrigin = 'anonymous';
-
-    textureLoader.load(
-      EARTH_DAY_URL,
-      (tex) => {
-        tex.colorSpace = THREE.SRGBColorSpace;
-        earthMat.map = tex;
-        earthMat.needsUpdate = true;
-      },
-      undefined,
-      (err) => console.log('NASA texture using fallback', err)
-    );
-
-    textureLoader.load(
-      EARTH_NORMAL_URL,
-      (normalTex) => {
-        earthMat.normalMap = normalTex;
-        earthMat.normalScale = new THREE.Vector2(0.85, 0.85);
-        earthMat.needsUpdate = true;
-      }
-    );
-
-    textureLoader.load(
-      EARTH_SPECULAR_URL,
-      (specularTex) => {
-        earthMat.roughnessMap = specularTex;
-        earthMat.needsUpdate = true;
-      }
-    );
-
     // =========================================================================
-    // 3. INDEPENDENT ROTATING CLOUD SPHERE
+    // 2. INDEPENDENT ROTATING CLOUD SPHERE (Local 0ms Texture)
     // =========================================================================
     const cloudsGeo = new THREE.SphereGeometry(radius * 1.018, 48, 48);
+    const cloudsTexture = textureLoader.load(EARTH_CLOUDS_URL, () => {
+      cloudsMat.needsUpdate = true;
+    });
     const cloudsMat = new THREE.MeshStandardMaterial({
+      map: cloudsTexture,
       transparent: true,
       opacity: 0.38,
       blending: THREE.AdditiveBlending,
@@ -255,14 +189,6 @@ export const Spatial3DGlobe: React.FC<Spatial3DGlobeProps> = ({
     const cloudsMesh = new THREE.Mesh(cloudsGeo, cloudsMat);
     globeGroup.add(cloudsMesh);
     cloudsMeshRef.current = cloudsMesh;
-
-    textureLoader.load(
-      EARTH_CLOUDS_URL,
-      (cloudsTex) => {
-        cloudsMat.map = cloudsTex;
-        cloudsMat.needsUpdate = true;
-      }
-    );
 
     // =========================================================================
     // 4. CLEAN, DECENT, MINIMALIST SMALL GLOWING CITY POINTS (High-End Luxury)
@@ -368,35 +294,14 @@ export const Spatial3DGlobe: React.FC<Spatial3DGlobeProps> = ({
     const ambientLight = new THREE.AmbientLight(0x0a1526, 0.9);
     scene.add(ambientLight);
 
-    // Deep Space Starfield
-    const starsCount = 1400;
-    const starsGeo = new THREE.BufferGeometry();
-    const starPositions = new Float32Array(starsCount * 3);
-
-    for (let i = 0; i < starsCount * 3; i += 3) {
-      starPositions[i] = (Math.random() - 0.5) * 1200;
-      starPositions[i + 1] = (Math.random() - 0.5) * 1200;
-      starPositions[i + 2] = (Math.random() - 0.5) * 1200;
-    }
-
-    starsGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-    const starsMat = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 1.1,
-      transparent: true,
-      opacity: 0.75,
-    });
-
-    const starField = new THREE.Points(starsGeo, starsMat);
-    scene.add(starField);
-
     // =========================================================================
-    // 7. RAYCASTER & INTERACTIVE CLICK / HOVER ON GLOBE
+    // 6. RAYCASTER & INTERACTIVE CLICK / HOVER ON GLOBE (Throttled for Performance)
     // =========================================================================
     const raycaster = new THREE.Raycaster();
     // Generous threshold for clicking small pinpoint markers easily
     raycaster.params.Sprite = { threshold: 3.5 };
     const mouse = new THREE.Vector2();
+    let lastHoverCheck = 0;
 
     const handleMouseDown = (e: MouseEvent) => {
       isDraggingRef.current = true;
@@ -422,6 +327,11 @@ export const Spatial3DGlobe: React.FC<Spatial3DGlobeProps> = ({
         setHoveredCity(null);
         return;
       }
+
+      // Throttle hover raycasting to ~30fps to keep interaction silky smooth without lag
+      const now = performance.now();
+      if (now - lastHoverCheck < 32) return;
+      lastHoverCheck = now;
 
       // Raycast pins and globe for hover tooltip
       raycaster.setFromCamera(mouse, camera);
@@ -640,8 +550,6 @@ export const Spatial3DGlobe: React.FC<Spatial3DGlobeProps> = ({
         const base = sp.userData.baseScale || 1.45;
         sp.scale.set(base * shimmer, base * shimmer, 1);
       });
-
-      starField.rotation.y = elapsed * 0.012;
 
       renderer.render(scene, camera);
     };
