@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { Destination, Currency, TravelVibe, Continent } from '../types';
 import { DestinationCard } from './DestinationCard';
-import { Cosmos3DFloatingStage, FloatingCardItem } from './Cosmos3DFloatingStage';
+import { Cosmos3DFloatingStage } from './Cosmos3DFloatingStage';
 
 interface DestinationExplorerProps {
   destinations: Destination[];
@@ -33,70 +33,6 @@ const VIBES: { label: TravelVibe; icon: string }[] = [
   { label: 'Cultural', icon: '🏛️' },
   { label: 'Luxury', icon: '👑' },
   { label: 'Adventure', icon: '🧗' },
-];
-
-// 6 Aesthetic 3x4 Rectangle Photos Beautifully Placed Around the Central Name Lines (Cosmos Orbital Aesthetic)
-const FLOATING_SHOWCASE: FloatingCardItem[] = [
-  {
-    id: 'amalfi',
-    title: 'Amalfi Coast',
-    subtitle: 'Italy',
-    image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=85',
-    size: 'w-28 sm:w-32 lg:w-36 xl:w-40',
-    position: 'top-[4%] left-4 lg:left-10 xl:left-16',
-    rotation: '-rotate-6',
-    parallaxFactor: 16,
-  },
-  {
-    id: 'swiss',
-    title: 'Swiss Alps',
-    subtitle: 'Switzerland',
-    image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=85',
-    size: 'w-28 sm:w-32 lg:w-36 xl:w-40',
-    position: 'top-1/2 -translate-y-1/2 left-1 lg:left-3 xl:left-6',
-    rotation: 'rotate-2',
-    parallaxFactor: 20,
-  },
-  {
-    id: 'paris',
-    title: 'Paris Lights',
-    subtitle: 'France',
-    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=85',
-    size: 'w-28 sm:w-32 lg:w-36 xl:w-40',
-    position: 'bottom-[4%] left-4 lg:left-10 xl:left-16',
-    rotation: '-rotate-3',
-    parallaxFactor: 15,
-  },
-  {
-    id: 'tokyo',
-    title: 'Kyoto & Tokyo',
-    subtitle: 'Japan',
-    image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=85',
-    size: 'w-28 sm:w-32 lg:w-36 xl:w-40',
-    position: 'top-[4%] right-4 lg:right-10 xl:right-16',
-    rotation: 'rotate-6',
-    parallaxFactor: 16,
-  },
-  {
-    id: 'santorini',
-    title: 'Santorini Caldera',
-    subtitle: 'Greece',
-    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=85',
-    size: 'w-28 sm:w-32 lg:w-36 xl:w-40',
-    position: 'top-1/2 -translate-y-1/2 right-1 lg:right-3 xl:right-6',
-    rotation: '-rotate-2',
-    parallaxFactor: 20,
-  },
-  {
-    id: 'bali',
-    title: 'Bali Sanctuary',
-    subtitle: 'Indonesia',
-    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=85',
-    size: 'w-28 sm:w-32 lg:w-36 xl:w-40',
-    position: 'bottom-[4%] right-4 lg:right-10 xl:right-16',
-    rotation: 'rotate-3',
-    parallaxFactor: 15,
-  },
 ];
 
 export const DestinationExplorer: React.FC<DestinationExplorerProps> = ({
@@ -149,7 +85,7 @@ export const DestinationExplorer: React.FC<DestinationExplorerProps> = ({
       <div className="max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-8 relative z-10">
         
         {/* ========================================================================= */}
-        {/* 3D FLOATING PARTICLES & CARDS CANVAS WITH PARALLAX & COSMOS TYPOGRAPHY */}
+        {/* 3D FLOATING PARTICLES CANVAS & COSMOS TYPOGRAPHY */}
         {/* ========================================================================= */}
         <Cosmos3DFloatingStage
           centralWord="COSMOS"
@@ -157,11 +93,9 @@ export const DestinationExplorer: React.FC<DestinationExplorerProps> = ({
           titleSuffix="Portfolio"
           subtitle="Hand-picked verified luxury properties, private cliffside villas, and bespoke cultural expeditions across 6 continents."
           taglineRoles={['photographers', 'architects', 'luxury voyagers', 'curators', 'explorers']}
-          cards={FLOATING_SHOWCASE}
           filterTags={['All', 'Europe', 'Asia', 'Americas', 'Africa', 'Oceania']}
           activeTag={selectedRegion}
           onTagSelect={(tag) => setSelectedRegion(tag as any)}
-          onCardClick={(card) => onSearchQueryChange(card.title)}
         />
 
         {/* ========================================================================= */}

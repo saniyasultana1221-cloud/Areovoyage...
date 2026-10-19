@@ -21,7 +21,7 @@ interface Cosmos3DFloatingStageProps {
   titleSuffix?: string; // e.g. "Portfolio"
   subtitle?: string;
   taglineRoles?: string[]; // e.g. ['photographers', 'architects', 'luxury voyagers', 'curators']
-  cards: FloatingCardItem[];
+  cards?: FloatingCardItem[];
   filterTags?: string[];
   activeTag?: string;
   onTagSelect?: (tag: string) => void;
@@ -34,7 +34,7 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
   titleSuffix = 'Portfolio',
   subtitle = 'A visual discovery engine in 3D deep space across six continents.',
   taglineRoles = ['photographers', 'architects', 'luxury seekers', 'curators', 'wanderers'],
-  cards,
+  cards = [],
   filterTags = [],
   activeTag = 'All',
   onTagSelect,
@@ -214,7 +214,11 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full min-h-[760px] sm:min-h-[800px] lg:min-h-[840px] py-12 flex flex-col items-center justify-center text-center px-4 mb-12 bg-transparent"
+      className={`relative w-full ${
+        cards.length > 0 
+          ? 'min-h-[760px] sm:min-h-[800px] lg:min-h-[840px] py-12 mb-12' 
+          : 'min-h-[360px] sm:min-h-[400px] py-10 sm:py-14 mb-4'
+      } flex flex-col items-center justify-center text-center px-4 bg-transparent`}
     >
       {/* 3D WebGL Interactive Particle Canvas */}
       <canvas
@@ -291,7 +295,7 @@ export const Cosmos3DFloatingStage: React.FC<Cosmos3DFloatingStageProps> = ({
       {/* ========================================================================= */}
       {/* DYNAMIC FLOATING VISUAL CARDS IN 3D SPACE (EXACT 3x4 RECTANGLE SHAPES) */}
       {/* ========================================================================= */}
-      {cards.map((card) => {
+      {cards && cards.length > 0 && cards.map((card) => {
         const transform = cardTransforms[card.id] || { x: 0, y: 0, rx: 0, ry: 0 };
         return (
           <div
